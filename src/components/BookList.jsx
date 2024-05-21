@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import CircularWithValueLabel from "./CircularWithValueLabel";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -15,7 +16,7 @@ const columns = [
 const DataTable = ({ bookList }) => {
   const rows = bookList.map((item, index) => {
     return {
-      id: index+1,
+      id: index + 1,
       title: item?.work?.title,
       first_publish_year: item?.work?.first_publish_year,
       author_names: item?.work?.author_names.map((author) => author),
@@ -30,18 +31,30 @@ const DataTable = ({ bookList }) => {
     };
   });
   return (
-    <div style={{ height: 700, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 50 },
-          },
-        }}
-        pageSizeOptions={[10,50, bookList.length]}
-        checkboxSelection
-      />
+    <div
+      style={{
+        height: 700,
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {rows.length == 0 ? (
+        <CircularWithValueLabel />
+      ) : (
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+          }}
+          pageSizeOptions={[10, 50, bookList.length]}
+          checkboxSelection
+        />
+      )}
     </div>
   );
 };
