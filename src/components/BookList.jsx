@@ -15,7 +15,7 @@ const columns = [
 const DataTable = ({ bookList }) => {
   const rows = bookList.map((item, index) => {
     return {
-      id: index,
+      id: index+1,
       title: item?.work?.title,
       first_publish_year: item?.work?.first_publish_year,
       author_names: item?.work?.author_names.map((author) => author),
@@ -39,7 +39,7 @@ const DataTable = ({ bookList }) => {
             paginationModel: { page: 0, pageSize: 50 },
           },
         }}
-        pageSizeOptions={[50, bookList.length]}
+        pageSizeOptions={[10,50, bookList.length]}
         checkboxSelection
       />
     </div>
